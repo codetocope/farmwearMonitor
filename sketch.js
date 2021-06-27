@@ -21,6 +21,14 @@ function setup() {
 
     cnv.parent('cnvContainer');
 
+    screenshotBtn = select('#screenshotBtn');
+
+    screenshotBtn.elt.addEventListener('click', (event) => {
+        html2canvas(document.body).then(canvas => {
+            saveAs(canvas.toDataURL(), 'screenshot.jpg');
+        });
+    });
+
     video.elt.addEventListener('loadeddata', (event) => {
         if (data != null) {
             knnClassifier.load('plantHealthDataset2.json', function () {
@@ -38,4 +46,24 @@ function setup() {
 function draw() {
     background(0);
     image(video, 0, 0, width, height);
+}
+
+function saveAs(uri, filename) {
+
+    var link = document.createElement('a');
+
+    if (typeof link.download === 'string') {
+
+        link.href = uri;
+        link.download = filename;
+
+        link.click();
+        
+        document.body.removeChild(link);
+
+    } else {
+
+        window.open(uri);
+
+    }
 }
