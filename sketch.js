@@ -17,7 +17,7 @@ function setup() {
     background(0);
     //video.size(360, 227);
     video.size(videoWidth * (4/3), videoWidth);
-    video.hide();
+    //video.hide();
 
     cnv.parent('cnvContainer');
 
@@ -28,6 +28,12 @@ function setup() {
             saveAs(canvas.toDataURL(), 'screenshot.jpg');
         });
     });
+
+    //video.elt.style.height = '0px';
+    //video.elt.style.width = '0px';
+    video.elt.style.opacity = 0;
+    video.elt.style.position = 'absolute';
+    video.elt.style.zIndex = -1000;
 
     video.elt.addEventListener('loadeddata', (event) => {
         if (data != null) {
